@@ -32,9 +32,12 @@ def receive(server):
 
             # 打印收到数据
             print('收到：', data)
+            return data
+        
 
 
         else:
 
             # 条件为False
             flag = False
+            return None
