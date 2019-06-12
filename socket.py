@@ -2,7 +2,7 @@ import socket
 
 flag = True
 
-# 主进程定义socket对象server = socket.socket()
+# 主进程定义socket对象server = socket.socket(),并且要在程序结束时关闭server.close()
 def receive(server):
     # 绑定ip和端口
     server.bind(('localhost', 6666))
