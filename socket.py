@@ -1,51 +1,40 @@
 import socket
-import os
-import sys
-import struct
+
+flag = True
+
+# 主进程定义socket对象server = socket.socket()
+def receive(server):
+    # 绑定ip和端口
+    server.bind(('localhost', 6666))
+
+    # 监听绑定的端口
+    server.listen()
+
+    # 方便识别打印一个我在等待
+    print("I'm waiting the connect...")
 
 
-def socket_service():                  /*最终调用函数*/
-    try:
-        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        s.bind(('127.0.0.1', 6666))     /*服务器ip和端口*/
-        s.listen(10)
-    except socket.error as msg:
-        print(msg)
-        sys.exit(1)
+    # 这里用两个值接受，因为链接上之后使用的是客户端发来请求的这个实例
+    # 所以下面的传输要使用conn实例操作
+    conn, addr = server.accept()
 
-    print("Wait")
+    # 打印链接成功
+    print('Connect success!')
 
-    while True:
-        sock, addr = s.accept()
-        deal_data(sock, addr)
-        break
-    s.close()
+    # 进入循环
+    while flag:
+
+        # 接受数据并赋给data
+        data = conn.recv(1024).decode()
+
+        # 判断
+        if data != None:
+
+            # 打印收到数据
+            print('收到：', data)
 
 
-def deal_data(sock, addr):
-    print("Accept connection from {0}".format(addr))
+        else:
 
-    while True:
-        fileinfo_size = struct.calcsize('128sl')
-        buf = sock.recv(fileinfo_size)
-        if buf:
-            filename, filesize = struct.unpack('128sl', buf)
-            fn = filename.decode().strip('\x00')
-            new_filename = os.path.join('./', 'new_' + fn)
-
-            recvd_size = 0
-            fp = open(new_filename, 'wb')
-
-            while not recvd_size == filesize:
-                if filesize - recvd_size > 1024:
-                    data = sock.recv(1024)
-                    recvd_size += len(data)
-                else:
-                    data = sock.recv(1024)
-                    recvd_size = filesize
-                fp.write(data)
-            fp.close()
-        sock.close()
-        break
-
+            # 条件为False
+            flag = False
