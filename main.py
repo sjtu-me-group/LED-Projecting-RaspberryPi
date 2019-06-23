@@ -6,9 +6,10 @@ import data
 
 # 屏幕分辨率
 resolution_x = 800
-resolution_y = 600
+resolution_y = 480
 # 网格长度
 gl = 20
+gly = 16
 
 
 class MainWindow(QtWidgets.QMainWindow):
@@ -41,22 +42,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.resize(resolution_x, resolution_y)
         self.setWindowTitle("控制中心")
 
-        self.name_label.setGeometry(gl*31, gl*7, gl*6, gl*1)
+        self.name_label.setGeometry(gl*31, gly*7, gl*6, gly*1)
         self.name_label.setText("请选择人员:")
 
-        self.comboBox.setGeometry(QtCore.QRect(gl * 30, gl*9, gl*9, gl*2))
+        self.comboBox.setGeometry(QtCore.QRect(gl * 30, gly*9, gl*9, gly*2))
         self.comboBox.setObjectName("comboBox")
         self.comboBox.clear()
         self.comboBox.addItem('请选择')
         self.comboBox.currentIndexChanged.connect(self.combo_index_changed)
 
-        self.work_label.setGeometry(gl * 5, gl*10, gl*20, gl*15)
+        self.work_label.setGeometry(gl * 5, gly*10, gl*20, gly*15)
 
-        self.print_button.setGeometry(gl * 30, gl * 17, gl * 9, gl * 4)
+        self.print_button.setGeometry(gl * 30, gly * 17, gl * 9, gly * 4)
         self.print_button.setText("打印")
         self.print_button.clicked.connect(self.print_clicked)
 
-        self.combo_refresh_button.setGeometry(gl * 30, gl * 2, gl * 9, gl * 4)
+        self.combo_refresh_button.setGeometry(gl * 30, gly * 2, gl * 9, gly * 4)
         self.combo_refresh_button.setText("刷新")
         self.combo_refresh_button.clicked.connect(self.combo_list_refresh)
 
