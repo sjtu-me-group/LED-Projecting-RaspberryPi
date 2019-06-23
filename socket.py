@@ -20,7 +20,7 @@ def receive(server):
 
     # 打印链接成功
     print('Connect success!')
-
+    f=open('./data.py','w')
     # 进入循环
     while flag:
 
@@ -30,14 +30,12 @@ def receive(server):
         # 判断
         if data != None:
 
-            # 打印收到数据
+            # 写入收到数据
             print('收到：', data)
-            return data
+            f.write(data)
         
 
 
         else:
 
-            # 条件为False
-            flag = False
             return None
