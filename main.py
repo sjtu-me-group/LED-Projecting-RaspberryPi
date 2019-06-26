@@ -128,6 +128,8 @@ class MainWindow(QtWidgets.QMainWindow):
         try:
             serialPrinting.sprint(self.comboBox.currentText() + "的工作是：")
             serialPrinting.sprint(str(self.comboBox.currentData()))
+            serialPrinting.sprint('|')
+            serialPrinting.sprint('|')
             self.state_label.setText("打印成功！")
         except:
             self.state_label.setText("没有数据！")
