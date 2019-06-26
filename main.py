@@ -1,8 +1,8 @@
 import sys
 from PyQt5 import QtWidgets, QtCore
 import data
-# import LEDProjecting
-# import serialPrinting
+import LEDProjecting
+import serialPrinting
 
 # 屏幕分辨率
 resolution_x = 800
@@ -120,13 +120,14 @@ class MainWindow(QtWidgets.QMainWindow):
         if self.led_subscript > len(self.data_copy) - 1:
             self.led_subscript = 0
         # 此函数将字符串显示在LED上
-        # LEDProjecting.LEDShow()
+        LEDProjecting.LEDshow(self.comboBox.currentText() + "的工作是：" + '\n' + str(self.comboBox.currentData()))
         self.led_subscript += 1
 
     # 打印的槽函数
     def print_clicked(self):
         try:
-            print(self.comboBox.currentText() + "的工作是：" + '\n' + str(self.comboBox.currentData()))
+            serialPrinting.sprint(self.comboBox.currentText() + "的工作是：")
+            serialPrinting.sprint(str(self.comboBox.currentData()))
             self.state_label.setText("打印成功！")
         except:
             self.state_label.setText("没有数据！")
